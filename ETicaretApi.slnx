@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Core/" />
+  <Folder Name="/Frontends/" />
+  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Presentation/" />
+  <Folder Name="/Requirements/" />
+</Solution>
