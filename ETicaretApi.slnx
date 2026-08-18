@@ -1,7 +1,14 @@
 <Solution>
-  <Folder Name="/Core/" />
+  <Folder Name="/Core/">
+    <Project Path="Core/ETicaretApi.Application/ETicaretApi.Application.csproj" Id="6f2bc878-ca6b-4d62-8f27-226297f6493d" />
+    <Project Path="Core/ETicaretApi.Domain/ETicaretApi.Domain.csproj" Id="3673b834-a774-4227-9891-7f15ee761919" />
+  </Folder>
   <Folder Name="/Frontends/" />
-  <Folder Name="/Infrastructure/" />
-  <Folder Name="/Presentation/" />
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/ETicaretApi.Persistence/ETicaretApi.Persistence.csproj" Id="82c582f1-35bd-4865-b756-586fe75760cd" />
+  </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="Presentation/ETicaretApi.WebApi/ETicaretApi.WebApi.csproj" Id="d94a4946-62e0-4f72-ac80-6d401a7c092a" />
+  </Folder>
   <Folder Name="/Requirements/" />
 </Solution>
