@@ -1,12 +1,13 @@
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaretApi.Domain.Entities
+namespace ETicaretApi.Application.Features.MediatorDesignPattern.Command.OrderCommands
 {
-    public class Order
+    public class UpdateOrderCommand : IRequest
     {
         public Guid OrderID { get; set; }
         public Guid UserID { get; set; }

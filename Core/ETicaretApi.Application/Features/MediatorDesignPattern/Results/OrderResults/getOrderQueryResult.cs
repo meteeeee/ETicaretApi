@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaretApi.Domain.Entities
+namespace ETicaretApi.Application.Features.MediatorDesignPattern.Results.OrderResults
 {
-    public class Order
+    public class getOrderQueryResult
     {
         public Guid OrderID { get; set; }
         public Guid UserID { get; set; }

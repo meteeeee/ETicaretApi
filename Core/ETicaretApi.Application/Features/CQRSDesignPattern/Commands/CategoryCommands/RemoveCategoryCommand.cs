@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +8,11 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Commands.CategoryCo
 {
     public class RemoveCategoryCommand
     {
-        public RemoveCategoryCommand(int categoryID)
+        public RemoveCategoryCommand(Guid categoryID)
         {
             CategoryID = categoryID;
         }
 
-        public int CategoryID { get; set; }
+        public Guid CategoryID { get; set; }
     }
 }

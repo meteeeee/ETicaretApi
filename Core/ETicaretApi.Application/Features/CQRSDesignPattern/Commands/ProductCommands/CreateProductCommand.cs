@@ -9,7 +9,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Commands.ProductCom
     public class CreateProductCommand
     {
         public string ProductName { get; set; }
-        public int ProductCategoryID { get; set; }
+        public Guid ProductCategoryID { get; set; }
         public int ProductPrice { get; set; }
         public string ProductImageURL { get; set; }
     }

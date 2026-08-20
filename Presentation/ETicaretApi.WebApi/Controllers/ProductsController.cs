@@ -45,7 +45,7 @@ namespace ETicaretApi.WebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(Guid id)
         {
             await _removeProductCommandHandler.Handle(new RemoveProductCommand(id));
             return Ok("Silme işlemi başarılı.");
@@ -59,7 +59,7 @@ namespace ETicaretApi.WebApi.Controllers
         }
 
         [HttpGet("GetProduct")]
-        public async Task<IActionResult> GetProduct(int id)
+        public async Task<IActionResult> GetProduct(Guid id)
         {
             var value = await _getProductByIdQueryHandler.Handle(new getProductByIdQuery(id));
             return Ok(value);

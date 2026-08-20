@@ -1,4 +1,4 @@
-﻿using ETicaretApi.Application.Features.CQRSDesignPattern.Commands.CategoryCommands;
+using ETicaretApi.Application.Features.CQRSDesignPattern.Commands.CategoryCommands;
 using ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
 using ETicaretApi.Application.Features.CQRSDesignPattern.Queries.CategoryQueries;
 using Microsoft.AspNetCore.Http;
@@ -45,7 +45,7 @@ namespace ETicaretApi.WebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(Guid id)
         {
             await _removeCategoryCommandHandler.Handle(new RemoveCategoryCommand(id));
             return Ok("Silme işlemi başarılı.");
@@ -59,7 +59,7 @@ namespace ETicaretApi.WebApi.Controllers
         }
 
         [HttpGet("GetCategory")]
-        public async Task<IActionResult> GetCategory(int id)
+        public async Task<IActionResult> GetCategory(Guid id)
         {
             var value = await _getCategoryByIdQueryHandler.Handle(new getCategoryByIdQuery(id));
             return Ok(value);

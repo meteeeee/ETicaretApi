@@ -8,7 +8,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Commands.CategoryCo
 {
     public class UpdateCategoryCommand
     {
-        public int CategoryID { get; set; }
+        public Guid CategoryID { get; set; }
         public string CategoryName { get; set; }
     }
 }

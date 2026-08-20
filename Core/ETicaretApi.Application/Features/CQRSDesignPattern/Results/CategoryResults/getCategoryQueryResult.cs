@@ -8,7 +8,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Results.CategoryRes
 {
     public class getCategoryQueryResult
     {
-        public int CategoryID { get; set; }
+        public Guid CategoryID { get; set; }
         public string CategoryName { get; set; }
     }
 }

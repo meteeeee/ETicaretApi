@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ETicaretApi.Domain.Entities
 {
-    public class Order
+    public class OrderDetail
     {
+        public Guid OrderDetailID { get; set; }
         public Guid OrderID { get; set; }
-        public Guid UserID { get; set; }
-        public DateTime OrderDate { get; set; }
-        public decimal TotalPrice { get; set; }
-        public string OrderStatus { get; set; }
+        public Guid ProductID { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }
