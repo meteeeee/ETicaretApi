@@ -8,6 +8,11 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Commands.ProductCom
 {
     public class RemoveProductCommand
     {
+        public RemoveProductCommand(int productID)
+        {
+            ProductID = productID;
+        }
+
         public int ProductID { get; set; }
     }
 }

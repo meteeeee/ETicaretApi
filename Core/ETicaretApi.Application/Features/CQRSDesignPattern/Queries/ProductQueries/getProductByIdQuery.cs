@@ -8,6 +8,11 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Queries.ProductQuer
 {
     public class getProductByIdQuery
     {
+        public getProductByIdQuery(int productID)
+        {
+            ProductID = productID;
+        }
+
         public int ProductID { get; set; }
     }
 }
