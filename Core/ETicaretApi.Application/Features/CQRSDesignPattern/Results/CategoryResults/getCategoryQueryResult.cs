@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,6 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Results.CategoryRes
     public class getCategoryQueryResult
     {
         public int CategoryID { get; set; }
-        public int CategoryName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

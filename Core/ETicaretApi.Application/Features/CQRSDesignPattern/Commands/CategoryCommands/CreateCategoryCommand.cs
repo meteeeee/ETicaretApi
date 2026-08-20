@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,6 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Commands.CategoryCo
 {
     public class CreateCategoryCommand
     {
-        public int CategoryName { get; set; }
+        public string CategoryName { get; set; }
     }
 }
