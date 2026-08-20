@@ -8,6 +8,11 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Commands.CategoryCo
 {
     public class RemoveCategoryCommand
     {
+        public RemoveCategoryCommand(int categoryID)
+        {
+            CategoryID = categoryID;
+        }
+
         public int CategoryID { get; set; }
     }
 }

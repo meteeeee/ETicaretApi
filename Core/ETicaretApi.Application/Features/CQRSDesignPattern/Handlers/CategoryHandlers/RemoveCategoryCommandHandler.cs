@@ -16,10 +16,10 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHa
         {
             _context = context;
         }
-        public async void Handle(RemoveCategoryCommand command)
+        public async Task Handle(RemoveCategoryCommand command)
         {
-            var value = await _context.Products.FindAsync(command.CategoryID);
-            _context.Products.Remove(value);
+            var value = await _context.Categories.FindAsync(command.CategoryID);
+            _context.Categories.Remove(value);
             await _context.SaveChangesAsync();
         }
     }

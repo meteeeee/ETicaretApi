@@ -8,6 +8,11 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Queries.CategoryQue
 {
     public class getCategoryByIdQuery
     {
+        public getCategoryByIdQuery(int categoryID)
+        {
+            CategoryID = categoryID;
+        }
+
         public int CategoryID { get; set; }
     }
 }

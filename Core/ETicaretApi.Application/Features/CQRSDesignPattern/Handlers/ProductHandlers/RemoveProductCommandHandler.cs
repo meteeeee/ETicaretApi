@@ -16,7 +16,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.ProductHan
         {
             _context = context;
         }
-        public async void Handle(RemoveProductCommand command)
+        public async Task Handle(RemoveProductCommand command)
         {
             var value = await _context.Products.FindAsync(command.ProductID);
             _context.Products.Remove(value);

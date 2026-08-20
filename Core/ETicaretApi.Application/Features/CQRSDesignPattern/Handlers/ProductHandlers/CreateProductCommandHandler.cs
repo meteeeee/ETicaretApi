@@ -17,7 +17,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.ProductHan
         {
             _context = context;
         }
-        public async void Handle(CreateProductCommand command)
+        public async Task Handle(CreateProductCommand command)
         {
             _context.Products.Add(new Product
             {

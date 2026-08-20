@@ -17,7 +17,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHa
         {
             _context = context;
         }
-        public async void Handle(CreateCategoryCommand command)
+        public async Task Handle(CreateCategoryCommand command)
         {
             _context.Categories.Add(new Category
             {
