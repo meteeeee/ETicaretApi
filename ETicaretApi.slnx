@@ -3,7 +3,9 @@
     <Project Path="Core/ETicaretApi.Application/ETicaretApi.Application.csproj" Id="6f2bc878-ca6b-4d62-8f27-226297f6493d" />
     <Project Path="Core/ETicaretApi.Domain/ETicaretApi.Domain.csproj" Id="3673b834-a774-4227-9891-7f15ee761919" />
   </Folder>
-  <Folder Name="/Frontends/" />
+  <Folder Name="/Frontends/">
+    <Project Path="Frontends/ETicaretApi.WebUI/ETicaretApi.WebUI.csproj" Id="90bc4b16-c6f6-4ba7-a0b0-65672fdce87d" />
+  </Folder>
   <Folder Name="/Infrastructure/">
     <Project Path="Infrastructure/ETicaretApi.Persistence/ETicaretApi.Persistence.csproj" Id="82c582f1-35bd-4865-b756-586fe75760cd" />
   </Folder>
