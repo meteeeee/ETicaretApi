@@ -23,6 +23,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.ProductHan
             var value = await _context.Products.FindAsync(query.ProductID);
             return new getProductByIdQueryResult
             {
+                ProductID = value.ProductID,
                 ProductCategoryID = value.ProductCategoryID,
                 ProductImageURL = value.ProductImageURL,
                 ProductName = value.ProductName,

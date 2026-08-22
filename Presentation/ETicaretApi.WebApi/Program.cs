@@ -1,7 +1,9 @@
 using ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
 using ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.ProductHandlers;
+using ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderHandlers;
 using ETicaretApi.Persistence.Context;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddScoped<getProductByIdQueryHandler>();
 builder.Services.AddScoped<CreateProductCommandHandler>();
 builder.Services.AddScoped<UpdateProductCommandHandler>();
 builder.Services.AddScoped<RemoveProductCommandHandler>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(getOrderQueryHandler).Assembly));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

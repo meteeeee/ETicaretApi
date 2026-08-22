@@ -21,7 +21,7 @@ namespace ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderD
 
         public async Task Handle(CreateOrderDetailCommand request, CancellationToken cancellationToken)
         {
-            _context.OrderDetails.Add(new OrderDetail
+            await _context.OrderDetails.AddAsync(new OrderDetail
             {
                 OrderID = request.OrderID,
                 ProductID = request.ProductID,

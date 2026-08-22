@@ -18,37 +18,37 @@ namespace ETicaretApi.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult OrderList()
+        public async Task<IActionResult> OrderList()
         {
-            var value = _mediator.Send(new getOrderQuery());
+            var value = await _mediator.Send(new getOrderQuery());
             return Ok(value);
         }
 
         [HttpPost]
-        public IActionResult CreateOrder(CreateOrderCommand command)
+        public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
         {
-            _mediator.Send(command);
+            await _mediator.Send(command);
             return Ok("Ekleme işlemi başarılı.");
         }
 
         [HttpDelete]
-        public IActionResult DeleteOrder(Guid id)
+        public async Task<IActionResult> DeleteOrder(Guid id)
         {
-            _mediator.Send(new RemoveOrderCommand(id));
+            await _mediator.Send(new RemoveOrderCommand(id));
             return Ok("Silme işlemi başarılı.");
         }
 
         [HttpGet("GetOrderById")]
-        public IActionResult getOrderById(Guid id)
+        public async Task<IActionResult> getOrderById(Guid id)
         {
-            var value = _mediator.Send(new getOrderDetailByIdQuery(id));
+            var value = await _mediator.Send(new getOrderByIdQuery(id));
             return Ok(value);
         }
 
         [HttpPut]
-        public IActionResult UpdateOrder(UpdateOrderCommand command)
+        public async Task<IActionResult> UpdateOrder(UpdateOrderCommand command)
         {
-            _mediator.Send(command);
+            await _mediator.Send(command);
             return Ok("Güncelleme işlemi başarılı.");
         }
     }

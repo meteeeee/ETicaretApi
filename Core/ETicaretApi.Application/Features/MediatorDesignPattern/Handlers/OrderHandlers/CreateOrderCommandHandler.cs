@@ -21,7 +21,7 @@ namespace ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderH
 
         public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            _context.Orders.Add(new Order
+            await _context.Orders.AddAsync(new Order
             {
                 UserID = request.UserID,
                 OrderDate = request.OrderDate,

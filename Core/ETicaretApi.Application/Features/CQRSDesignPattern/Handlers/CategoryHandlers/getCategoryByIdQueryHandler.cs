@@ -22,6 +22,7 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHa
             var value = await _context.Categories.FindAsync(query.CategoryID);
             return new getCategoryByIdQueryResult
             {
+                CategoryID = value.CategoryID,
                 CategoryName = value.CategoryName
             };
         }

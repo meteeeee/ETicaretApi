@@ -24,6 +24,7 @@ namespace ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderD
             var values = await _context.OrderDetails.FindAsync(request.OrderDetailID);
             return new getOrderDetailByIdQueryResult
             {
+                OrderDetailID = values.OrderDetailID,
                 OrderID = values.OrderID,
                 ProductID = values.ProductID,
                 Quantity = values.Quantity,
