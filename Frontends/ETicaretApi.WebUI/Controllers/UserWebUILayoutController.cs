@@ -6,7 +6,7 @@ namespace ETicaretApi.WebUI.Controllers
     {
         public IActionResult LayoutUI()
         {
-            return View();
+            return View("~/Views/Home/Index.cshtml");
         }
     }
 }

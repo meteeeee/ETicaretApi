@@ -1,0 +1,53 @@
+<!-- Register Modal Start -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title font-weight-bold text-white" id="registerModalLabel">
+                    <i class="fas fa-user-plus mr-2"></i>Yeni Hesap Oluştur
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-user mr-1 text-primary"></i> Adınız</label>
+                            <input type="text" class="form-control" placeholder="Adınız" required>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-user mr-1 text-primary"></i> Soyadınız</label>
+                            <input type="text" class="form-control" placeholder="Soyadınız" required>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-envelope mr-1 text-primary"></i> E-Posta Adresi</label>
+                        <input type="email" class="form-control" placeholder="ornek@mail.com" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-lock mr-1 text-primary"></i> Şifre</label>
+                        <input type="password" class="form-control" placeholder="En az 6 karakter" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-lock mr-1 text-primary"></i> Şifre Tekrar</label>
+                        <input type="password" class="form-control" placeholder="Şifrenizi tekrar girin" required>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="registerTerms" required>
+                        <label class="custom-control-label text-muted small" for="registerTerms">
+                            <a href="#" class="text-primary font-weight-semi-bold">Kullanım Şartları</a> ve <a href="#" class="text-primary font-weight-semi-bold">Gizlilik Sözleşmesi</a>'ni onaylıyorum.
+                        </label>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block py-2 font-weight-semi-bold shadow-sm mb-3">Kayıt Ol</button>
+                    <div class="text-center">
+                        <span class="text-muted small">Zaten hesabınız var mı? </span>
+                        <a href="javascript:void(0)" class="text-primary small font-weight-bold" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Giriş Yap</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register Modal End -->

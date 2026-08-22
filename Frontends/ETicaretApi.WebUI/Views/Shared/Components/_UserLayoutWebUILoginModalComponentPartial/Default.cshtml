@@ -1,0 +1,40 @@
+<!-- Login Modal Start -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title font-weight-bold text-white" id="loginModalLabel">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Giriş Yap
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4">
+                <form>
+                    <div class="form-group mb-3">
+                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-envelope mr-1 text-primary"></i> E-Posta Adresi</label>
+                        <input type="email" class="form-control py-3" placeholder="ornek@mail.com" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-lock mr-1 text-primary"></i> Şifre</label>
+                        <input type="password" class="form-control py-3" placeholder="••••••••" required>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="rememberMe">
+                            <label class="custom-control-label text-muted" for="rememberMe">Beni Hatırla</label>
+                        </div>
+                        <a href="#" class="text-primary small font-weight-semi-bold">Şifremi Unuttum?</a>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block py-2 font-weight-semi-bold shadow-sm mb-3">Giriş Yap</button>
+                    <div class="text-center">
+                        <span class="text-muted small">Hesabınız yok mu? </span>
+                        <a href="javascript:void(0)" class="text-primary small font-weight-bold" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">Hemen Kayıt Ol</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Modal End -->
