@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Ürün Detayı";
+    Layout = "~/Views/UserWebUILayout/LayoutUI.cshtml";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 250px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Ürün Detayı</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="/" class="text-primary font-weight-semi-bold">Ana Sayfa</a></p>
+            <p class="m-0 px-2 text-muted">/</p>
+            <p class="m-0"><a href="/Product/ProductList" class="text-primary font-weight-semi-bold">Ürünler</a></p>
+            <p class="m-0 px-2 text-muted">/</p>
+            <p class="m-0 font-weight-semi-bold text-dark">Detay</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Shop Detail Start -->
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        @await Component.InvokeAsync("_ProductDetailImageFeatureComponentPartial", new { id = ViewBag.id })
+        @await Component.InvokeAsync("_ProductDetailDescriptionFeatureComponentPartial", new { id = ViewBag.id })
+    </div>
+    <div class="row px-xl-5">
+        @await Component.InvokeAsync("_ProductDetailTabReviewComponentPartial", new { id = ViewBag.id })
+    </div>
+</div>
+<!-- Shop Detail End -->

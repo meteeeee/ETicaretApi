@@ -4,6 +4,7 @@
     <Project Path="Core/ETicaretApi.Domain/ETicaretApi.Domain.csproj" Id="3673b834-a774-4227-9891-7f15ee761919" />
   </Folder>
   <Folder Name="/Frontends/">
+    <Project Path="Frontends/ETicaretApi.Dto/ETicaretApi.Dto.csproj" Id="c3355ca7-52f7-49cf-a381-e86b66e48433" />
     <Project Path="Frontends/ETicaretApi.WebUI/ETicaretApi.WebUI.csproj" Id="90bc4b16-c6f6-4ba7-a0b0-65672fdce87d" />
   </Folder>
   <Folder Name="/Infrastructure/">
