@@ -1,46 +1,107 @@
 <!-- Register Modal Start -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-primary text-white">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content border-0 shadow-lg rounded">
+            <div class="modal-header bg-primary text-white py-3">
                 <h5 class="modal-title font-weight-bold text-white" id="registerModalLabel">
                     <i class="fas fa-user-plus mr-2"></i>Yeni Hesap Oluştur
                 </h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close text-white opacity-100" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body p-4">
-                <form>
+                @if (TempData["RegisterError"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show font-weight-semi-bold mb-3 shadow-sm" role="alert">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>@TempData["RegisterError"]
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+
+                <form id="registerForm" action="/Register/SignUp" method="post">
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label class="font-weight-semi-bold text-dark"><i class="fas fa-user mr-1 text-primary"></i> Adınız</label>
-                            <input type="text" class="form-control" placeholder="Adınız" required>
+                            <input type="text" name="FirstName" class="form-control" placeholder="Adınız" value="@TempData["FirstName"]" required>
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label class="font-weight-semi-bold text-dark"><i class="fas fa-user mr-1 text-primary"></i> Soyadınız</label>
-                            <input type="text" class="form-control" placeholder="Soyadınız" required>
+                            <input type="text" name="LastName" class="form-control" placeholder="Soyadınız" value="@TempData["LastName"]" required>
                         </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-envelope mr-1 text-primary"></i> E-Posta Adresi</label>
-                        <input type="email" class="form-control" placeholder="ornek@mail.com" required>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-id-badge mr-1 text-primary"></i> Kullanıcı Adı</label>
+                            <input type="text" id="registerUserName" name="UserName" class="form-control @(TempData["RegisterError"] != null ? "border-danger" : "")" placeholder="Yeni bir kullanıcı adı seçin" required>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-envelope mr-1 text-primary"></i> E-Posta Adresi</label>
+                            <input type="email" id="registerEmail" name="Email" class="form-control @(TempData["RegisterError"] != null ? "border-danger" : "")" placeholder="Yeni bir e-posta girin" required>
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-lock mr-1 text-primary"></i> Şifre</label>
-                        <input type="password" class="form-control" placeholder="En az 6 karakter" required>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-lock mr-1 text-primary"></i> Şifre</label>
+                            <div class="input-group">
+                                <input type="password" id="registerPassword" name="Password" class="form-control" placeholder="Güçlü bir şifre girin" value="@TempData["Password"]" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-light border" type="button" id="btnTogglePassword" style="cursor: pointer; background-color: #f8f9fa;" title="Şifreyi görmek için basılı tutun">
+                                        <i class="fas fa-eye font-weight-bold" id="eyeIcon" style="color: #000000 !important; font-size: 1.1rem;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Canlı Şifre Gereksinimleri Listesi -->
+                            <div class="p-3 bg-light rounded mt-2 border">
+                                <small class="font-weight-bold text-dark d-block mb-2">Şifre Gereksinimleri:</small>
+                                <ul class="list-unstyled mb-0 small" style="line-height: 1.8;">
+                                    <li id="req-length" class="text-danger">
+                                        <i class="fas fa-times-circle mr-1"></i> En az 8 karakter
+                                    </li>
+                                    <li id="req-uppercase" class="text-danger">
+                                        <i class="fas fa-times-circle mr-1"></i> En az bir büyük harf (A-Z)
+                                    </li>
+                                    <li id="req-lowercase" class="text-danger">
+                                        <i class="fas fa-times-circle mr-1"></i> En az bir küçük harf (a-z)
+                                    </li>
+                                    <li id="req-digit" class="text-danger">
+                                        <i class="fas fa-times-circle mr-1"></i> En az bir rakam (0-9)
+                                    </li>
+                                    <li id="req-special" class="text-danger">
+                                        <i class="fas fa-times-circle mr-1"></i> En az bir özel karakter (örn: !@@#$%^&*._-)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-venus-mars mr-1 text-primary"></i> Cinsiyet</label>
+                            <select name="Gender" class="custom-select form-control mb-3">
+                                <option value="1" selected="@(TempData["Gender"]?.ToString() == "1" ? "selected" : null)">Erkek</option>
+                                <option value="2" selected="@(TempData["Gender"]?.ToString() == "2" ? "selected" : null)">Kadın</option>
+                                <option value="0" selected="@(TempData["Gender"]?.ToString() == "0" ? "selected" : null)">Belirtmek İstemiyorum</option>
+                            </select>
+
+                            <label class="font-weight-semi-bold text-dark"><i class="fas fa-map-marker-alt mr-1 text-primary"></i> Adres</label>
+                            <textarea name="Address" class="form-control" rows="5" placeholder="Teslimat / Ev adresinizi yazınız..." required>@TempData["Address"]</textarea>
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="font-weight-semi-bold text-dark"><i class="fas fa-lock mr-1 text-primary"></i> Şifre Tekrar</label>
-                        <input type="password" class="form-control" placeholder="Şifrenizi tekrar girin" required>
-                    </div>
+
                     <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="registerTerms" required>
+                        <input type="checkbox" class="custom-control-input" id="registerTerms" checked required>
                         <label class="custom-control-label text-muted small" for="registerTerms">
-                            <a href="#" class="text-primary font-weight-semi-bold">Kullanım Şartları</a> ve <a href="#" class="text-primary font-weight-semi-bold">Gizlilik Sözleşmesi</a>'ni onaylıyorum.
+                            <a href="javascript:void(0)" class="text-primary font-weight-semi-bold">Kullanım Şartları</a> ve <a href="javascript:void(0)" class="text-primary font-weight-semi-bold">Gizlilik Sözleşmesi</a>'ni onaylıyorum.
                         </label>
                     </div>
-                    <button type="button" class="btn btn-primary btn-block py-2 font-weight-semi-bold shadow-sm mb-3">Kayıt Ol</button>
+
+                    <button type="submit" id="btnRegisterSubmit" class="btn btn-primary btn-block py-2 font-weight-bold shadow-sm mb-3" disabled>
+                        <i class="fas fa-check-circle mr-1"></i> Hesabı Oluştur ve Kayıt Ol
+                    </button>
+
                     <div class="text-center">
                         <span class="text-muted small">Zaten hesabınız var mı? </span>
                         <a href="javascript:void(0)" class="text-primary small font-weight-bold" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Giriş Yap</a>
@@ -50,4 +111,106 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @if (TempData["RegisterError"] != null)
+        {
+            <text>
+            $('#registerModal').modal('show');
+            setTimeout(function() {
+                const uNameInput = document.getElementById('registerUserName');
+                if (uNameInput) uNameInput.focus();
+            }, 500);
+            </text>
+        }
+
+        const passwordInput = document.getElementById("registerPassword");
+        const submitBtn = document.getElementById("btnRegisterSubmit");
+        const btnTogglePassword = document.getElementById("btnTogglePassword");
+        const eyeIcon = document.getElementById("eyeIcon");
+
+        // Click & Hold Şifre Gösterme / Gizleme Fonksiyonları
+        function showPassword() {
+            if (passwordInput) passwordInput.type = "text";
+            if (eyeIcon) {
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            }
+        }
+
+        function hidePassword() {
+            if (passwordInput) passwordInput.type = "password";
+            if (eyeIcon) {
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+
+        if (btnTogglePassword) {
+            // Mouse ile basılı tutma
+            btnTogglePassword.addEventListener("mousedown", showPassword);
+            btnTogglePassword.addEventListener("mouseup", hidePassword);
+            btnTogglePassword.addEventListener("mouseleave", hidePassword);
+
+            // Mobil / Dokunmatik ekranlar için basılı tutma
+            btnTogglePassword.addEventListener("touchstart", function (e) {
+                e.preventDefault();
+                showPassword();
+            });
+            btnTogglePassword.addEventListener("touchend", hidePassword);
+        }
+
+        const reqLength = document.getElementById("req-length");
+        const reqUpper = document.getElementById("req-uppercase");
+        const reqLower = document.getElementById("req-lowercase");
+        const reqDigit = document.getElementById("req-digit");
+        const reqSpecial = document.getElementById("req-special");
+
+        function validatePassword() {
+            if (!passwordInput) return;
+            const val = passwordInput.value || "";
+
+            const hasLength = val.length >= 8;
+            const hasUpper = /[A-Z]/.test(val);
+            const hasLower = /[a-z]/.test(val);
+            const hasDigit = /[0-9]/.test(val);
+            const hasSpecial = /[^A-Za-z0-9]/.test(val);
+
+            if (reqLength) {
+                reqLength.className = hasLength ? "text-success font-weight-bold" : "text-danger";
+                reqLength.innerHTML = `<i class="fas fa-${hasLength ? 'check-circle' : 'times-circle'} mr-1"></i> En az 8 karakter`;
+            }
+
+            if (reqUpper) {
+                reqUpper.className = hasUpper ? "text-success font-weight-bold" : "text-danger";
+                reqUpper.innerHTML = `<i class="fas fa-${hasUpper ? 'check-circle' : 'times-circle'} mr-1"></i> En az bir büyük harf (A-Z)`;
+            }
+
+            if (reqLower) {
+                reqLower.className = hasLower ? "text-success font-weight-bold" : "text-danger";
+                reqLower.innerHTML = `<i class="fas fa-${hasLower ? 'check-circle' : 'times-circle'} mr-1"></i> En az bir küçük harf (a-z)`;
+            }
+
+            if (reqDigit) {
+                reqDigit.className = hasDigit ? "text-success font-weight-bold" : "text-danger";
+                reqDigit.innerHTML = `<i class="fas fa-${hasDigit ? 'check-circle' : 'times-circle'} mr-1"></i> En az bir rakam (0-9)`;
+            }
+
+            if (reqSpecial) {
+                reqSpecial.className = hasSpecial ? "text-success font-weight-bold" : "text-danger";
+                reqSpecial.innerHTML = `<i class="fas fa-${hasSpecial ? 'check-circle' : 'times-circle'} mr-1"></i> En az bir özel karakter (örn: !@@#$%^&*._-)`;
+            }
+
+            const allValid = hasLength && hasUpper && hasLower && hasDigit && hasSpecial;
+            if (submitBtn) submitBtn.disabled = !allValid;
+        }
+
+        if (passwordInput) {
+            passwordInput.addEventListener("input", validatePassword);
+            // Sayfa açıldığında şifre dolu gelmişse hemen kontrolü çalıştır
+            validatePassword();
+        }
+    });
+</script>
 <!-- Register Modal End -->

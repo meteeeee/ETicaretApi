@@ -1,7 +1,10 @@
 using ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
 using ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.ProductHandlers;
+using ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.UserRegisterHandlers;
 using ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderHandlers;
 using ETicaretApi.Persistence.Context;
+using ETicaretApi.Persistence.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -25,6 +28,17 @@ builder.Services.AddScoped<getProductByIdQueryHandler>();
 builder.Services.AddScoped<CreateProductCommandHandler>();
 builder.Services.AddScoped<UpdateProductCommandHandler>();
 builder.Services.AddScoped<RemoveProductCommandHandler>();
+
+builder.Services.AddScoped<CreateUserRegisterCommandHandler>();
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<ProductContext>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(getOrderQueryHandler).Assembly));
 
