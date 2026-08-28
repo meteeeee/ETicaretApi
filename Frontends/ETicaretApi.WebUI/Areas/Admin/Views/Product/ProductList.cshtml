@@ -1,0 +1,74 @@
+@model List<ResultProductDto>
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="p-lg">
+    <div class="flex justify-between items-center mb-lg">
+        <div>
+            <h1 class="font-headline-md text-headline-md text-on-surface font-bold">@ViewBag.v1</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-xs">@ViewBag.v2 / <span class="text-primary font-semibold">@ViewBag.v3</span></p>
+        </div>
+        <a href="#" class="px-md py-sm bg-primary text-on-primary rounded-xl font-bold hover:scale-[1.02] transition-transform flex items-center gap-2 shadow-sm">
+            <span class="material-symbols-outlined text-[20px]">add_circle</span>
+            Yeni Ürün Ekle
+        </a>
+    </div>
+
+    <!-- Ürünler Tablosu (Stitch Dark Theme) -->
+    <div class="bg-surface-container-low rounded-xl shadow-md border border-outline-variant/10 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-outline-variant/10 bg-surface-container-lowest/50 text-on-surface-variant font-label-caps text-label-caps uppercase">
+                        <th class="p-md">#</th>
+                        <th class="p-md">Görsel</th>
+                        <th class="p-md">Ürün Adı</th>
+                        <th class="p-md">Fiyat</th>
+                        <th class="p-md text-center">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/10 font-body-md text-body-md">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            <tr class="hover:bg-surface-container-high/40 transition-colors">
+                                <td class="p-md text-on-surface-variant font-bold">@count</td>
+                                <td class="p-md">
+                                    <img src="@item.ProductImageURL" alt="@item.ProductName" class="w-12 h-12 object-cover rounded-lg border border-outline-variant/20 bg-surface-container" />
+                                </td>
+                                <td class="p-md font-semibold text-on-surface">@item.ProductName</td>
+                                <td class="p-md text-primary font-bold">₺@item.ProductPrice.ToString("N0")</td>
+                                <td class="p-md text-center">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <a href="#" class="px-3 py-1.5 bg-error-container text-on-error-container rounded-lg font-semibold hover:bg-error hover:text-on-error transition-colors flex items-center gap-1 text-sm">
+                                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                                            Sil
+                                        </a>
+                                        <a href="#" class="px-3 py-1.5 bg-secondary-container text-on-secondary-container rounded-lg font-semibold hover:bg-secondary hover:text-on-secondary transition-colors flex items-center gap-1 text-sm">
+                                            <span class="material-symbols-outlined text-[16px]">edit</span>
+                                            Güncelle
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="p-lg text-center text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[32px] mb-2 text-outline">inventory_2</span>
+                                <div>Kayıtlı ürün bulunamadı.</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

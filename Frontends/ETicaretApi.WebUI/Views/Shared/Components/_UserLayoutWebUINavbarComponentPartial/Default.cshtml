@@ -14,13 +14,37 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="/" class="nav-item nav-link">Ana Sayfa</a>
                         <a href="/Product/ProductList" class="nav-item nav-link">Ürünler</a>
-                        <a href="" class="nav-item nav-link">Sepetim</a>
-                        <a href="" class="nav-item nav-link">Siparişlerim</a>
-                        <a href="" class="nav-item nav-link">İletişim</a>
+                        <a href="/Cart/Index" class="nav-item nav-link font-weight-bold text-primary">
+                            <i class="fas fa-shopping-cart mr-1"></i>Sepetim
+                        </a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a href="/Order/MyOrders" class="nav-item nav-link font-weight-bold text-dark">
+                                <i class="fas fa-box text-primary mr-1"></i>Siparişlerim
+                            </a>
+                        }
+                        @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a href="/Admin/AdminProduct/ProductList" class="nav-item nav-link font-weight-bold text-dark">
+                                <i class="fas fa-crown text-warning mr-1"></i>Admin Paneli
+                            </a>
+                        }
                     </div>
-                    <div class="navbar-nav ml-auto py-0">
-                        <a href="javascript:void(0)" class="nav-item nav-link" data-toggle="modal" data-target="#loginModal"><i class="fas fa-sign-in-alt mr-1 text-primary"></i>Giriş Yap</a>
-                        <a href="javascript:void(0)" class="nav-item nav-link" data-toggle="modal" data-target="#registerModal"><i class="fas fa-user-plus mr-1 text-primary"></i>Kayıt Ol</a>
+                    <div class="navbar-nav ml-auto py-0 align-items-center">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <span class="nav-item nav-link text-dark font-weight-semi-bold">
+                                <i class="fas fa-user-circle text-primary mr-1"></i>@User.Identity.Name
+                            </span>
+                            <a href="/Login/Logout" class="nav-item nav-link text-danger font-weight-bold">
+                                <i class="fas fa-sign-out-alt mr-1"></i>Çıkış Yap
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:void(0)" class="nav-item nav-link" data-toggle="modal" data-target="#loginModal"><i class="fas fa-sign-in-alt mr-1 text-primary"></i>Giriş Yap</a>
+                            <a href="javascript:void(0)" class="nav-item nav-link" data-toggle="modal" data-target="#registerModal"><i class="fas fa-user-plus mr-1 text-primary"></i>Kayıt Ol</a>
+                        }
                     </div>
                 </div>
             </nav>

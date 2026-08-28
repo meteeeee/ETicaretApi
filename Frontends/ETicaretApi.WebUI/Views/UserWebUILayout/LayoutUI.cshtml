@@ -16,6 +16,10 @@
     @await Component.InvokeAsync("_UserLayoutWebUIFooterComponentPartial")
     @await Component.InvokeAsync("_UserLayoutWebUILoginModalComponentPartial")
     @await Component.InvokeAsync("_UserLayoutWebUIRegisterModalComponentPartial")
+    
+    <!-- AI Asistan Canlı Sohbet Baloncuğu -->
+    @await Html.PartialAsync("~/Views/Shared/_AiChatFloatingWidgetPartial.cshtml")
+
     @await Component.InvokeAsync("_UserLayoutWebUIScriptsComponentPartial")
 </body>
 

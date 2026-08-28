@@ -1,0 +1,138 @@
+@using ETicaretApi.Dto.Dtos.CartDtos
+@model CartDto
+@{
+    ViewData["Title"] = "Sepetim";
+    Layout = "~/Views/UserWebUILayout/LayoutUI.cshtml";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Alışveriş Sepetim</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="/" class="text-primary font-weight-semi-bold">Ana Sayfa</a></p>
+            <p class="m-0 px-2 text-muted">/</p>
+            <p class="m-0 font-weight-semi-bold text-dark">Sepet</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Cart Start -->
+<div class="container-fluid pt-2 pb-5">
+    <div class="row px-xl-5">
+        @if (Model != null && Model.Items.Count > 0)
+        {
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0 shadow-sm bg-white rounded overflow-hidden">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Fiyat</th>
+                            <th>Adet</th>
+                            <th>Toplam</th>
+                            <th>Kaldır</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td class="align-middle text-left font-weight-bold">
+                                    <img src="@item.ProductImageURL" alt="" style="width: 55px; height: 55px; object-fit: cover;" class="rounded mr-3 border">
+                                    @item.ProductName
+                                </td>
+                                <td class="align-middle text-primary font-weight-bold">₺@item.Price.ToString("N2")</td>
+                                <td class="align-middle" style="width: 140px;">
+                                    <div class="input-group quantity mx-auto" style="width: 110px;">
+                                        <div class="input-group-btn">
+                                            <form method="post" action="/Cart/UpdateQuantity" class="d-inline">
+                                                <input type="hidden" name="productId" value="@item.ProductID" />
+                                                <input type="hidden" name="quantity" value="@(item.Quantity - 1)" />
+                                                <button type="submit" class="btn btn-sm btn-primary btn-minus">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary text-center font-weight-bold" value="@item.Quantity" readonly>
+                                        <div class="input-group-btn">
+                                            <form method="post" action="/Cart/UpdateQuantity" class="d-inline">
+                                                <input type="hidden" name="productId" value="@item.ProductID" />
+                                                <input type="hidden" name="quantity" value="@(item.Quantity + 1)" />
+                                                <button type="submit" class="btn btn-sm btn-primary btn-plus">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle font-weight-extrabold text-dark">₺@item.TotalPrice.ToString("N2")</td>
+                                <td class="align-middle">
+                                    <a href="/Cart/RemoveFromCart?productId=@item.ProductID" class="btn btn-sm btn-danger rounded-circle" style="width: 32px; height: 32px; padding: 4px;" title="Sepetten Çıkar">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sipariş Özeti -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm mb-5 bg-white rounded-lg overflow-hidden">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h5 class="font-weight-bold text-white m-0"><i class="fas fa-receipt mr-2"></i>Sipariş Özeti</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium text-dark">Ara Toplam</h6>
+                            <h6 class="font-weight-medium text-dark">₺@Model.SubTotal.ToString("N2")</h6>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6 class="font-weight-medium text-dark">Kargo Bedeli</h6>
+                            <h6 class="font-weight-medium text-success">
+                                @(Model.ShippingPrice == 0 ? "Ücretsiz Kargo" : $"₺{Model.ShippingPrice:N2}")
+                            </h6>
+                        </div>
+                        <hr class="my-3">
+                        <div class="d-flex justify-content-between mb-4">
+                            <h5 class="font-weight-bold text-dark">Genel Toplam</h5>
+                            <h5 class="font-weight-bold text-primary">₺@Model.GrandTotal.ToString("N2")</h5>
+                        </div>
+
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <form method="post" action="/Cart/Checkout">
+                                <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-bold py-3 shadow-sm rounded-pill">
+                                    <i class="fas fa-check-circle mr-2"></i>Siparişi Tamamla
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a href="/Login/SignIn" class="btn btn-block btn-warning btn-lg font-weight-bold py-3 shadow-sm rounded-pill text-dark">
+                                <i class="fas fa-lock mr-2"></i>Giriş Yap ve Satın Al
+                            </a>
+                            <small class="text-muted text-center d-block mt-2">Sipariş verebilmek için lütfen oturum açınız.</small>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-12 text-center py-5">
+                <div class="p-5 bg-white rounded-lg shadow-sm d-inline-block" style="max-width: 600px; width: 100%;">
+                    <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
+                    <h3 class="font-weight-bold text-dark mb-2">Sepetiniz Boş</h3>
+                    <p class="text-muted mb-4">Sepetinizde henüz herhangi bir ürün bulunmamaktadır. Harika ürünlerimizi incelemeye hemen başlayın!</p>
+                    <a href="/Product/ProductList" class="btn btn-primary btn-lg font-weight-bold px-5 py-3 rounded-pill shadow-sm">
+                        <i class="fas fa-shopping-bag mr-2"></i>Alışverişe Başla
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Cart End -->

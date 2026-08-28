@@ -5,44 +5,53 @@
             <a href="/" class="text-decoration-none">
                 <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Ticaret</h1>
             </a>
-            <p>En kaliteli ürünleri en uygun fiyatlarla sizlere sunuyoruz. Güvenli alışveriş ve hızlı kargo ile hizmetinizdeyiz.</p>
-            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>İstanbul, Türkiye</p>
-            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@eticaret.com</p>
-            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+90 212 123 45 67</p>
+            <p>En kaliteli teknoloji ve yaşam ürünlerini en uygun fiyatlarla sizlere sunuyoruz. Güvenli alışveriş, orijinal ürün garantisi ve hızlı kargo ile hizmetinizdeyiz.</p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Levent, Beşiktaş / İstanbul, Türkiye</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>destek@eticaret.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+90 (212) 444 0 123</p>
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">
+                <!-- Hızlı Bağlantılar -->
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Hızlı Bağlantılar</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-dark mb-2" href="/"><i class="fa fa-angle-right mr-2"></i>Ana Sayfa</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Ürünlerimiz</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Sepetim</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Sipariş Takibi</a>
-                        <a class="text-dark" href=""><i class="fa fa-angle-right mr-2"></i>İletişim</a>
+                        <a class="text-dark mb-2" href="/"><i class="fa fa-angle-right mr-2 text-primary"></i>Ana Sayfa</a>
+                        <a class="text-dark mb-2" href="/Product/ProductList"><i class="fa fa-angle-right mr-2 text-primary"></i>Tüm Ürünler</a>
+                        <a class="text-dark mb-2" href="/Cart/Index"><i class="fa fa-angle-right mr-2 text-primary"></i>Sepetim</a>
+                        <a class="text-dark" href="javascript:void(0)" onclick="$('#infoModalTitle').text('İletişim & Destek'); $('#infoModalBody').html('<p><strong>Müşteri Hizmetleri:</strong> 0850 123 45 67</p><p><strong>E-Posta:</strong> destek@eticaret.com</p><p><strong>Çalışma Saatleri:</strong> Hafta içi 09:00 - 18:00</p><p><strong>Adres:</strong> Levent Mah. Büyükdere Cad. No:123 Beşiktaş / İstanbul</p>'); $('#infoModal').modal('show');"><i class="fa fa-angle-right mr-2 text-primary"></i>İletişim & Adres</a>
                     </div>
                 </div>
+
+                <!-- Müşteri Hizmetleri -->
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Müşteri Hizmetleri</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Kargo & Teslimat</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>İade Koşulları</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Gizlilik Politikası</a>
-                        <a class="text-dark mb-2" href=""><i class="fa fa-angle-right mr-2"></i>Kullanım Şartları</a>
+                        <a class="text-dark mb-2" href="javascript:void(0)" onclick="$('#infoModalTitle').text('Kargo & Teslimat Bilgileri'); $('#infoModalBody').html('<p>Siparişleriniz <strong>24 saat içinde</strong> anlaşmalı kargo firmalarına teslim edilir.</p><p>1.000 TL ve üzeri tüm alışverişlerinizde <strong>Kargo Ücretsizdir!</strong></p><p>Kargo takip numaranız SMS ve E-posta olarak tarafınıza iletilmektedir.</p>'); $('#infoModal').modal('show');"><i class="fa fa-angle-right mr-2 text-primary"></i>Kargo & Teslimat</a>
+                        
+                        <a class="text-dark mb-2" href="javascript:void(0)" onclick="$('#infoModalTitle').text('İade & Değişim Koşulları'); $('#infoModalBody').html('<p>Satın aldığınız ürünleri teslim aldığınız tarihten itibaren <strong>14 gün içerisinde</strong> koşulsuz iade edebilirsiniz.</p><p>Ürünün ambalajının açılmamış, kullanılmamış ve faturasıyla birlikte gönderilmesi gerekmektedir.</p><p>İade onaylandığında ödemeniz 3 iş günü içinde kartınıza iade edilir.</p>'); $('#infoModal').modal('show');"><i class="fa fa-angle-right mr-2 text-primary"></i>14 Gün İade Garantisi</a>
+                        
+                        <a class="text-dark mb-2" href="javascript:void(0)" onclick="$('#infoModalTitle').text('Gizlilik ve Güvenlik'); $('#infoModalBody').html('<p>Kişisel verileriniz <strong>KVKK</strong> kapsamında 256-bit SSL güvenlik sertifikası ile korunmaktadır.</p><p>Kredi kartı bilgileriniz sunucularımızda asla saklanmaz ve doğrudan banka altyapısıyla şifrelenir.</p>'); $('#infoModal').modal('show');"><i class="fa fa-angle-right mr-2 text-primary"></i>Gizlilik & Güvenlik</a>
+                        
+                        <a class="text-dark mb-2" href="javascript:void(0)" onclick="$('#infoModalTitle').text('Orijinal Ürün & Garanti'); $('#infoModalBody').html('<p>Sitemizde satılan tüm teknoloji ve giyim ürünleri <strong>%100 Orijinal ve Distribütör Garantilidir.</strong></p><p>Tüm ürünler adınıza düzenlenmiş e-fatura ile gönderilir.</p>'); $('#infoModal').modal('show');"><i class="fa fa-angle-right mr-2 text-primary"></i>%100 Orijinal Garantisi</a>
                     </div>
                 </div>
+
+                <!-- Bültenimize Katılın -->
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Bültenimize Katılın</h5>
-                    <form action="">
-                        <div class="form-group">
-                            <input type="text" class="form-control border-0 py-4" placeholder="Adınız Soyadınız" required="required" />
+                    <p class="text-muted small">İndirimler ve yeni ürünlerden ilk siz haberdar olun.</p>
+                    <form id="newsletterForm" onsubmit="event.preventDefault(); var n = document.getElementById('newsName').value; document.getElementById('newsletterForm').reset(); alert('Teşekkürler ' + (n || '') + '! E-bülten aboneliğiniz başarıyla tamamlandı. Kampanyalardan ilk siz haberdar olacaksınız.');">
+                        <div class="form-group mb-2">
+                            <input type="text" id="newsName" class="form-control border bg-white py-3 rounded" placeholder="Adınız Soyadınız" required />
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control border-0 py-4" placeholder="E-Posta Adresiniz"
-                                required="required" />
+                        <div class="form-group mb-2">
+                            <input type="email" id="newsEmail" class="form-control border bg-white py-3 rounded" placeholder="E-Posta Adresiniz" required />
                         </div>
                         <div>
-                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Abone Ol</button>
+                            <button class="btn btn-primary btn-block border-0 py-2.5 font-weight-bold rounded shadow-sm" type="submit">
+                                <i class="fas fa-paper-plane mr-1"></i> Abone Ol
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -52,15 +61,35 @@
     <div class="row border-top border-light mx-xl-5 py-4">
         <div class="col-md-6 px-xl-0">
             <p class="mb-md-0 text-center text-md-left text-dark">
-                &copy; <a class="text-dark font-weight-semi-bold" href="#">ETicaret</a>. Tüm Hakları Saklıdır.
+                &copy; 2026 <a class="text-dark font-weight-bold" href="/">ETicaret</a>. Tüm Hakları Saklıdır.
             </p>
         </div>
         <div class="col-md-6 px-xl-0 text-center text-md-right">
-            <img class="img-fluid" src="~/eshopper/img/payments.png" alt="">
+            <img class="img-fluid" src="~/eshopper/img/payments.png" alt="Ödeme Seçenekleri">
         </div>
     </div>
 </div>
 <!-- Footer End -->
+
+<!-- Bilgilendirme Modal'ı -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg rounded-2xl">
+            <div class="modal-header bg-primary text-white py-3">
+                <h5 class="modal-title font-weight-bold text-white" id="infoModalTitle">Bilgilendirme</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4 text-dark" id="infoModalBody">
+                <!-- Dinamik İçerik -->
+            </div>
+            <div class="modal-footer border-0 bg-light py-2">
+                <button type="button" class="btn btn-secondary px-4 rounded-pill font-weight-bold" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>

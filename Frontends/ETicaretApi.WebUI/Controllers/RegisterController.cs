@@ -1,7 +1,14 @@
 using ETicaretApi.Dto.Dtos.UserRegisterDtos;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ETicaretApi.WebUI.Controllers
 {
@@ -24,7 +31,21 @@ namespace ETicaretApi.WebUI.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["RegisterSuccess"] = "Hesabınız başarıyla oluşturuldu! Şimdi giriş yapabilirsiniz.";
+                // Kayıt olur olmaz otomatik giriş yap
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, createUserRegisterDto.UserName),
+                    new Claim(ClaimTypes.Role, "User"),
+                    new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    new AuthenticationProperties { IsPersistent = false });
+
+                TempData["RegisterSuccess"] = $"Hoş geldiniz, {createUserRegisterDto.FirstName}! Hesabınız oluşturuldu ve otomatik giriş yapıldı.";
                 return RedirectToAction("ProductList", "Product");
             }
 

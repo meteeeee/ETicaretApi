@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Siparişiniz Alındı";
+    Layout = "~/Views/UserWebUILayout/LayoutUI.cshtml";
+    var orderId = ViewBag.OrderId;
+}
+
+<div class="container py-5 my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9 text-center">
+            <div class="card border-0 shadow-lg rounded-2xl p-5 bg-white">
+                <div class="w-20 h-20 mx-auto mb-4 bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 90px; height: 90px; background-color: #d1e7dd;">
+                    <i class="fas fa-check-circle fa-4x text-success"></i>
+                </div>
+
+                <h2 class="font-weight-bold text-dark mb-2">Tebrikler! Siparişiniz Alındı 🎉</h2>
+                <p class="text-muted mb-3 lead">
+                    Siparişiniz başarıyla veritabanına kaydedildi ve hazırlanmaya başlandı.
+                </p>
+
+                <div class="alert alert-light border p-3 rounded-lg my-3 text-left">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Sipariş Numarası:</span>
+                        <span class="font-weight-bold text-primary">#@orderId</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Sipariş Durumu:</span>
+                        <span class="badge badge-warning font-weight-bold px-2 py-1">Hazırlanıyor</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Ödeme Yöntemi:</span>
+                        <span class="font-weight-bold text-dark">Kredi Kartı / 3D Secure (Test)</span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
+                    <a href="/Product/ProductList" class="btn btn-primary btn-lg px-4 py-3 rounded-pill font-weight-bold shadow-sm mr-2 mb-2">
+                        <i class="fas fa-shopping-bag mr-2"></i>Alışverişe Devam Et
+                    </a>
+                    <a href="/Order/MyOrders" class="btn btn-outline-primary btn-lg px-4 py-3 rounded-pill font-weight-bold shadow-sm mb-2">
+                        <i class="fas fa-box mr-2"></i>Siparişlerime Git
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

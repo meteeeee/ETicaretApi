@@ -1,0 +1,86 @@
+@using ETicaretApi.Dto.Dtos.AdminCategoryDtos
+@model List<AdminResultCategoryDto>
+@{
+    ViewData["Title"] = "CategoryList";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="p-lg">
+    <div class="flex justify-between items-center mb-lg">
+        <div>
+            <h1 class="font-headline-md text-headline-md text-on-surface font-bold">@ViewBag.v1</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-xs">@ViewBag.v2 / <span class="text-primary font-semibold">@ViewBag.v3</span></p>
+        </div>
+        <a href="/Admin/AdminCategory/CreateCategory" class="px-md py-sm bg-primary text-on-primary rounded-xl font-bold hover:scale-[1.02] transition-transform flex items-center gap-2 shadow-sm">
+            <span class="material-symbols-outlined text-[20px]">add_circle</span>
+            Yeni Kategori Ekle
+        </a>
+    </div>
+
+    <!-- Hata / Uyarı Bildirimi -->
+    @if (TempData["CategoryDeleteError"] != null)
+    {
+        <div class="mb-lg p-md bg-error-container text-on-error-container rounded-xl border border-error/20 flex items-center gap-3 shadow-sm">
+            <span class="material-symbols-outlined text-[24px] text-error">warning</span>
+            <div class="font-semibold text-sm">@TempData["CategoryDeleteError"]</div>
+        </div>
+    }
+
+    @if (TempData["CategoryDeleteSuccess"] != null)
+    {
+        <div class="mb-lg p-md bg-surface-container-high text-primary rounded-xl border border-primary/20 flex items-center gap-3 shadow-sm">
+            <span class="material-symbols-outlined text-[24px] text-primary">check_circle</span>
+            <div class="font-semibold text-sm">@TempData["CategoryDeleteSuccess"]</div>
+        </div>
+    }
+
+    <!-- Kategoriler Tablosu (Stitch Dark Theme) -->
+    <div class="bg-surface-container-low rounded-xl shadow-md border border-outline-variant/10 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-outline-variant/10 bg-surface-container-lowest/50 text-on-surface-variant font-label-caps text-label-caps uppercase">
+                        <th class="p-md w-20">#</th>
+                        <th class="p-md">Kategori Adı</th>
+                        <th class="p-md text-center w-48">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/10 font-body-md text-body-md">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            <tr class="hover:bg-surface-container-high/40 transition-colors">
+                                <td class="p-md text-on-surface-variant font-bold">@count</td>
+                                <td class="p-md font-semibold text-on-surface">@item.CategoryName</td>
+                                <td class="p-md text-center">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <a href="/Admin/AdminCategory/DeleteCategory?id=@item.CategoryID" onclick="return confirm('@item.CategoryName kategorisini silmek istediğinize emin misiniz?');" class="px-3 py-1.5 bg-error-container text-on-error-container rounded-lg font-semibold hover:bg-error hover:text-on-error transition-colors flex items-center gap-1 text-sm">
+                                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                                            Sil
+                                        </a>
+                                        <a href="/Admin/AdminCategory/UpdateCategory?id=@item.CategoryID" class="px-3 py-1.5 bg-secondary-container text-on-secondary-container rounded-lg font-semibold hover:bg-secondary hover:text-on-secondary transition-colors flex items-center gap-1 text-sm">
+                                            <span class="material-symbols-outlined text-[16px]">edit</span>
+                                            Güncelle
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="p-lg text-center text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[32px] mb-2 text-outline">category</span>
+                                <div>Kayıtlı kategori bulunamadı.</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

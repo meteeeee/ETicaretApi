@@ -1,0 +1,201 @@
+@using ETicaretApi.Dto.Dtos.AdminOrderDtos
+@model List<AdminResultOrderDto>
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="p-lg">
+    <!-- Başlık ve İstatistik -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-lg">
+        <div>
+            <h1 class="font-headline-md text-headline-md text-on-surface font-bold">@ViewBag.v1</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-xs">@ViewBag.v2 / <span class="text-primary font-semibold">@ViewBag.v3</span></p>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="px-4 py-2 bg-surface-container-high text-primary font-bold rounded-xl border border-outline-variant/10 flex items-center gap-2 shadow-sm">
+                <span class="material-symbols-outlined text-[20px]">shopping_cart_checkout</span>
+                Toplam @(Model?.Count ?? 0) Sipariş
+            </span>
+        </div>
+    </div>
+
+    <!-- Siparişler Tablosu (Stitch Dark Theme + Açılır Kapanır Accordion) -->
+    <div class="bg-surface-container-low rounded-2xl shadow-md border border-outline-variant/10 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-outline-variant/10 bg-surface-container-lowest/50 text-on-surface-variant font-label-caps text-label-caps uppercase">
+                        <th class="p-md text-center" style="width: 48px;">Detay</th>
+                        <th class="p-md">Sipariş No</th>
+                        <th class="p-md">Müşteri</th>
+                        <th class="p-md">Tarih</th>
+                        <th class="p-md">Toplam Tutar</th>
+                        <th class="p-md">Durum</th>
+                        <th class="p-md text-center">Durum Güncelle</th>
+                        <th class="p-md text-center">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/10 font-body-md text-body-md">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            var collapseId = $"orderDetail_{item.OrderID.ToString().Replace("-", "")}";
+                            var itemCount = item.OrderDetails?.Sum(x => x.Quantity) ?? 0;
+
+                            <!-- Ana Sipariş Satırı -->
+                            <tr class="hover:bg-surface-container-high/40 transition-colors cursor-pointer" onclick="toggleOrderDrawer('@collapseId')">
+                                <td class="p-md text-center">
+                                    <button type="button" class="w-8 h-8 rounded-lg bg-surface-container-high hover:bg-primary/20 text-on-surface hover:text-primary flex items-center justify-center transition-all mx-auto" id="btn_@collapseId">
+                                        <span class="material-symbols-outlined text-[20px] transition-transform duration-200" id="icon_@collapseId">expand_more</span>
+                                    </button>
+                                </td>
+                                <td class="p-md">
+                                    <div class="font-bold text-primary font-mono text-sm">#@item.OrderID.ToString().Substring(0, 8).ToUpper()</div>
+                                    <div class="text-xs text-on-surface-variant">@itemCount ürün</div>
+                                </td>
+                                <td class="p-md">
+                                    <div class="font-bold text-on-surface flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined text-[18px] text-primary">person</span>
+                                        @@@item.UserName
+                                    </div>
+                                </td>
+                                <td class="p-md text-on-surface-variant text-sm">
+                                    @item.OrderDate.ToString("dd.MM.yyyy HH:mm")
+                                </td>
+                                <td class="p-md font-bold text-emerald-400 text-base">
+                                    ₺@item.TotalPrice.ToString("N2")
+                                </td>
+                                <td class="p-md">
+                                    @if (item.OrderStatus == "Teslim Edildi")
+                                    {
+                                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-green-500/20 text-green-400 border border-green-500/30 inline-flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                            Teslim Edildi
+                                        </span>
+                                    }
+                                    else if (item.OrderStatus == "Kargoda")
+                                    {
+                                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 inline-flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                                            Kargoda
+                                        </span>
+                                    }
+                                    else if (item.OrderStatus == "İptal Edildi")
+                                    {
+                                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-red-500/20 text-red-400 border border-red-500/30 inline-flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">cancel</span>
+                                            İptal Edildi
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 inline-flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">pending</span>
+                                            Hazırlanıyor
+                                        </span>
+                                    }
+                                </td>
+                                <td class="p-md text-center" onclick="event.stopPropagation()">
+                                    <form method="post" action="/Admin/AdminOrder/UpdateStatus" class="inline-flex items-center gap-1">
+                                        <input type="hidden" name="orderId" value="@item.OrderID" />
+                                        <select name="status" onchange="this.form.submit()" class="px-3 py-1.5 bg-surface-container-high border border-outline-variant/30 rounded-lg text-xs font-semibold text-on-surface focus:outline-none focus:border-primary">
+                                            @if (item.OrderStatus == "Hazırlanıyor") { <option value="Hazırlanıyor" selected>🟡 Hazırlanıyor</option> } else { <option value="Hazırlanıyor">🟡 Hazırlanıyor</option> }
+                                            @if (item.OrderStatus == "Kargoda") { <option value="Kargoda" selected>🔵 Kargoda</option> } else { <option value="Kargoda">🔵 Kargoda</option> }
+                                            @if (item.OrderStatus == "Teslim Edildi") { <option value="Teslim Edildi" selected>🟢 Teslim Edildi</option> } else { <option value="Teslim Edildi">🟢 Teslim Edildi</option> }
+                                            @if (item.OrderStatus == "İptal Edildi") { <option value="İptal Edildi" selected>🔴 İptal Edildi</option> } else { <option value="İptal Edildi">🔴 İptal Edildi</option> }
+                                        </select>
+                                    </form>
+                                </td>
+                                <td class="p-md text-center" onclick="event.stopPropagation()">
+                                    <a href="/Admin/AdminOrder/DeleteOrder?id=@item.OrderID" onclick="return confirm('Bu siparişi silmek istediğinize emin misiniz?');" class="px-3 py-1.5 bg-error-container text-on-error-container hover:bg-error hover:text-on-error rounded-lg font-semibold transition-colors inline-flex items-center gap-1 text-xs">
+                                        <span class="material-symbols-outlined text-[14px]">delete</span>
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <!-- Aşağı Açılan Ürün Detay Çekmecesi (Accordion Content) -->
+                            <tr id="@collapseId" style="display: none;" class="bg-surface-container-lowest/80 border-y border-outline-variant/20">
+                                <td colspan="8" class="p-lg">
+                                    <div class="rounded-xl border border-outline-variant/10 bg-surface-container-low p-md">
+                                        <div class="flex items-center justify-between mb-sm pb-xs border-b border-outline-variant/10">
+                                            <h4 class="text-sm font-bold text-on-surface flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-[18px] text-primary">inventory_2</span>
+                                                Siparişteki Ürünler (@(item.OrderDetails?.Count ?? 0) Farklı Ürün)
+                                            </h4>
+                                            <span class="text-xs text-on-surface-variant font-mono">Tam ID: @item.OrderID</span>
+                                        </div>
+
+                                        @if (item.OrderDetails != null && item.OrderDetails.Any())
+                                        {
+                                            <div class="divide-y divide-outline-variant/10">
+                                                @foreach (var prod in item.OrderDetails)
+                                                {
+                                                    <div class="py-2.5 flex items-center justify-between gap-4">
+                                                        <div class="flex items-center gap-3">
+                                                            @if (!string.IsNullOrEmpty(prod.ProductImageURL))
+                                                            {
+                                                                <img src="@prod.ProductImageURL" alt="" class="w-12 h-12 rounded-lg object-cover border border-outline-variant/20 bg-surface-container-high" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+                                                                    <span class="material-symbols-outlined text-[20px]">image</span>
+                                                                </div>
+                                                            }
+                                                            <div>
+                                                                <div class="font-bold text-on-surface text-sm">@prod.ProductName</div>
+                                                                <div class="text-xs text-on-surface-variant">Birim Fiyat: ₺@prod.UnitPrice.ToString("N2")</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <div class="text-xs font-semibold text-primary">@prod.Quantity Adet</div>
+                                                            <div class="font-bold text-on-surface text-sm">₺@prod.TotalPrice.ToString("N2")</div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-xs text-on-surface-variant py-2">Bu siparişe ait ürün detayı bulunamadı.</p>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="p-lg text-center text-on-surface-variant">
+                                <span class="material-symbols-outlined text-[36px] mb-2 text-outline">shopping_bag</span>
+                                <div>Henüz kayıtlı bir sipariş bulunmuyor.</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleOrderDrawer(rowId) {
+        var row = document.getElementById(rowId);
+        var icon = document.getElementById('icon_' + rowId);
+        if (!row) return;
+
+        if (row.style.display === 'none' || row.style.display === '') {
+            row.style.display = 'table-row';
+            if (icon) icon.innerText = 'expand_less';
+        } else {
+            row.style.display = 'none';
+            if (icon) icon.innerText = 'expand_more';
+        }
+    }
+</script>

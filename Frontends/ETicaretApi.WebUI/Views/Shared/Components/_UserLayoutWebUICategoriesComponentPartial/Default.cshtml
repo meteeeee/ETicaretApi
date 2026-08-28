@@ -1,17 +1,22 @@
+@using ETicaretApi.Dto.Dtos.AdminCategoryDtos
+@model List<AdminResultCategoryDto>
+
 <!-- Categories Sidebar Start -->
 <div class="col-lg-3 d-none d-lg-block position-relative">
     <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
         <h6 class="m-0 text-white"><i class="fa fa-bars mr-2"></i>Kategoriler</h6>
         <i class="fa fa-angle-down text-white"></i>
     </a>
-    <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-        <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-            <a href="/Product/ProductList" class="nav-item nav-link">Elektronik</a>
-            <a href="/Product/ProductList" class="nav-item nav-link">Moda & Giyim</a>
-            <a href="/Product/ProductList" class="nav-item nav-link">Ev & Yaşam</a>
-            <a href="/Product/ProductList" class="nav-item nav-link">Kozmetik</a>
-            <a href="/Product/ProductList" class="nav-item nav-link">Spor & Outdoor</a>
-            <a href="/Product/ProductList" class="nav-item nav-link">Kitap & Hobi</a>
+    <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light shadow-sm" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+        <div class="navbar-nav w-100" style="max-height: 410px; overflow-y: auto;">
+            <a href="/Product/ProductList" class="nav-item nav-link font-weight-bold text-primary border-bottom"><i class="fa fa-th-large mr-2"></i> Tüm Ürünler</a>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <a href="/Product/ProductList?categoryId=@item.CategoryID" class="nav-item nav-link border-bottom">@item.CategoryName</a>
+                }
+            }
         </div>
     </nav>
 </div>

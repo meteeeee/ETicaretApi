@@ -1,16 +1,14 @@
-﻿using ETicaretApi.Application.Features.MediatorDesignPattern.Command.OrderCommands;
+using ETicaretApi.Application.Features.MediatorDesignPattern.Command.OrderCommands;
 using ETicaretApi.Domain.Entities;
 using ETicaretApi.Persistence.Context;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderHandlers
 {
-    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Guid>
     {
         private readonly ProductContext _context;
 
@@ -19,16 +17,20 @@ namespace ETicaretApi.Application.Features.MediatorDesignPattern.Handlers.OrderH
             _context = context;
         }
 
-        public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            await _context.Orders.AddAsync(new Order
+            var order = new Order
             {
+                OrderID = Guid.NewGuid(),
                 UserID = request.UserID,
-                OrderDate = request.OrderDate,
+                OrderDate = request.OrderDate == default ? DateTime.Now : request.OrderDate,
                 TotalPrice = request.TotalPrice,
-                OrderStatus = request.OrderStatus
-            });
-            await _context.SaveChangesAsync();
+                OrderStatus = string.IsNullOrWhiteSpace(request.OrderStatus) ? "Hazırlanıyor" : request.OrderStatus
+            };
+
+            await _context.Orders.AddAsync(order, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            return order.OrderID;
         }
     }
 }

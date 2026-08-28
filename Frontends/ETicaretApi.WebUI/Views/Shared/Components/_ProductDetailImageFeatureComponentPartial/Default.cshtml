@@ -1,23 +1,17 @@
+@using ETicaretApi.Dto.Dtos.ProductDtos
+@model ResultProductDto
+
 <!-- Product Detail Image Gallery Start -->
 <div class="col-lg-5 pb-5">
-    <div id="product-carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner border">
-            <div class="carousel-item active">
-                <img class="w-100 h-100" src="~/eshopper/img/product-1.jpg" alt="Ürün Resmi 1" style="max-height: 500px; object-fit: cover;">
-            </div>
-            <div class="carousel-item">
-                <img class="w-100 h-100" src="~/eshopper/img/product-2.jpg" alt="Ürün Resmi 2" style="max-height: 500px; object-fit: cover;">
-            </div>
-            <div class="carousel-item">
-                <img class="w-100 h-100" src="~/eshopper/img/product-3.jpg" alt="Ürün Resmi 3" style="max-height: 500px; object-fit: cover;">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-            <i class="fa fa-2x fa-angle-left text-dark"></i>
-        </a>
-        <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-            <i class="fa fa-2x fa-angle-right text-dark"></i>
-        </a>
+    <div class="border rounded overflow-hidden bg-white p-3 text-center shadow-sm">
+        @if (Model != null && !string.IsNullOrEmpty(Model.ProductImageURL))
+        {
+            <img class="img-fluid w-100 rounded" src="@Model.ProductImageURL" alt="@Model.ProductName" style="max-height: 480px; object-fit: contain;">
+        }
+        else
+        {
+            <img class="img-fluid w-100 rounded" src="~/eshopper/img/product-1.jpg" alt="Ürün Resmi" style="max-height: 480px; object-fit: contain;">
+        }
     </div>
 </div>
 <!-- Product Detail Image Gallery End -->

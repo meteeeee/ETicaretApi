@@ -1,0 +1,150 @@
+@using ETicaretApi.Dto.Dtos.AdminOrderDtos
+@model List<AdminResultOrderDto>
+@{
+    ViewData["Title"] = "Siparişlerim";
+    Layout = "~/Views/UserWebUILayout/LayoutUI.cshtml";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-4">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">@ViewBag.v1</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="/" class="text-primary font-weight-semi-bold">@ViewBag.v2</a></p>
+            <p class="m-0 px-2 text-muted">/</p>
+            <p class="m-0 font-weight-semi-bold text-dark">@ViewBag.v3</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- My Orders Start -->
+<div class="container py-3 pb-5">
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h4 class="font-weight-bold text-dark mb-1">
+                    <i class="fas fa-boxes text-primary mr-2"></i>Tüm Siparişleriniz (@Model.Count)
+                </h4>
+                <p class="text-muted">Verdiğiniz siparişlerin durumunu ve kargo sürecini buradan anlık olarak takip edebilirsiniz.</p>
+            </div>
+
+            @foreach (var order in Model)
+            {
+                <div class="col-12 mb-4">
+                    <div class="card border shadow-sm rounded-lg overflow-hidden bg-white">
+                        <!-- Sipariş Başlığı -->
+                        <div class="card-header bg-light py-3 px-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
+                            <div>
+                                <span class="text-muted small d-block">Sipariş Numarası</span>
+                                <span class="font-weight-bold text-primary font-mono" style="font-size: 1.1rem;">
+                                    #@order.OrderID.ToString().Substring(0, 8).ToUpper()
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="text-muted small d-block">Sipariş Tarihi</span>
+                                <span class="font-weight-medium text-dark">
+                                    <i class="far fa-calendar-alt text-muted mr-1"></i>@order.OrderDate.ToString("dd.MM.yyyy HH:mm")
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="text-muted small d-block">Toplam Tutar</span>
+                                <span class="font-weight-bold text-dark" style="font-size: 1.15rem;">
+                                    ₺@order.TotalPrice.ToString("N2")
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="text-muted small d-block mb-1">Sipariş Durumu</span>
+                                @if (order.OrderStatus == "Teslim Edildi")
+                                {
+                                    <span class="badge badge-success px-3 py-2 font-weight-bold" style="font-size: 0.85rem;">
+                                        <i class="fas fa-check-circle mr-1"></i>Teslim Edildi
+                                    </span>
+                                }
+                                else if (order.OrderStatus == "Kargoda")
+                                {
+                                    <span class="badge badge-info px-3 py-2 font-weight-bold text-white" style="font-size: 0.85rem; background-color: #17a2b8;">
+                                        <i class="fas fa-shipping-fast mr-1"></i>Kargoya Verildi
+                                    </span>
+                                }
+                                else if (order.OrderStatus == "İptal Edildi")
+                                {
+                                    <span class="badge badge-danger px-3 py-2 font-weight-bold" style="font-size: 0.85rem;">
+                                        <i class="fas fa-times-circle mr-1"></i>İptal Edildi
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning px-3 py-2 font-weight-bold text-dark" style="font-size: 0.85rem;">
+                                        <i class="fas fa-clock mr-1"></i>Hazırlanıyor
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Siparişteki Ürünler -->
+                        <div class="card-body p-4">
+                            <h6 class="font-weight-bold text-dark mb-3 border-bottom pb-2">
+                                <i class="fas fa-shopping-bag text-primary mr-2"></i>Paket İçeriği (@(order.OrderDetails?.Sum(x => x.Quantity) ?? 0) Adet Ürün)
+                            </h6>
+
+                            @if (order.OrderDetails != null && order.OrderDetails.Any())
+                            {
+                                <div class="row">
+                                    @foreach (var prod in order.OrderDetails)
+                                    {
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="d-flex align-items-center p-2 border rounded bg-light">
+                                                @if (!string.IsNullOrEmpty(prod.ProductImageURL))
+                                                {
+                                                    <img src="@prod.ProductImageURL" alt="@prod.ProductName" class="rounded mr-3 border" style="width: 60px; height: 60px; object-fit: cover;">
+                                                }
+                                                else
+                                                {
+                                                    <div class="rounded mr-3 border bg-white d-flex align-items-center justify-content-center text-muted" style="width: 60px; height: 60px;">
+                                                        <i class="fas fa-image"></i>
+                                                    </div>
+                                                }
+                                                <div class="overflow-hidden">
+                                                    <h6 class="font-weight-bold text-dark mb-1 text-truncate" title="@prod.ProductName" style="font-size: 0.9rem;">
+                                                        @prod.ProductName
+                                                    </h6>
+                                                    <small class="text-muted d-block">Adet: <strong class="text-dark">@prod.Quantity</strong> x ₺@prod.UnitPrice.ToString("N2")</small>
+                                                    <small class="text-primary font-weight-bold">Toplam: ₺@prod.TotalPrice.ToString("N2")</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0 small">Ürün detayları yüklenemedi.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center py-5">
+            <div class="col-md-8 text-center bg-white p-5 rounded-lg shadow-sm border">
+                <div class="w-20 h-20 mx-auto mb-4 bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="fas fa-box-open fa-3x text-muted"></i>
+                </div>
+                <h3 class="font-weight-bold text-dark mb-2">Henüz Bir Siparişiniz Yok</h3>
+                <p class="text-muted mb-4 lead">Geçmişte vermiş olduğunuz herhangi bir sipariş bulunamadı. Binlerce kaliteli ürünü keşfetmek için hemen alışverişe başlayın!</p>
+                <a href="/Product/ProductList" class="btn btn-primary btn-lg px-5 py-3 rounded-pill font-weight-bold shadow-sm">
+                    <i class="fas fa-shopping-bag mr-2"></i>Alışverişe Başla
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<!-- My Orders End -->

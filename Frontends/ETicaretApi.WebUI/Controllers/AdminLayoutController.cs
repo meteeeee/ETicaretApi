@@ -6,7 +6,7 @@ namespace ETicaretApi.WebUI.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("ProductList", "AdminProduct", new { area = "Admin" });
         }
     }
 }

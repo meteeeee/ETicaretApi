@@ -6,7 +6,7 @@
 
 <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 250px">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">@ViewBag.v1</h1>
         <div class="d-inline-flex">
             <p class="m-0"><a href="/" class="text-primary font-weight-semi-bold">@ViewBag.v2</a></p>
@@ -18,88 +18,53 @@
 <!-- Page Header End -->
 
 <!-- Shop / Product List Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-2 pb-5">
     <div class="row px-xl-5">
-        <!-- Shop Sidebar Start -->
-        <div class="col-lg-3 col-md-12">
-            <!-- Price Filter Start -->
-            <div class="border-bottom mb-4 pb-4">
-                <h5 class="font-weight-semi-bold mb-4">Fiyata Göre Filtrele</h5>
-                <form>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                        <label class="custom-control-label" for="price-all">Tüm Fiyatlar</label>
-                        <span class="badge border font-weight-normal">1000+</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">0 TL - 500 TL</label>
-                        <span class="badge border font-weight-normal">150</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-2">
-                        <label class="custom-control-label" for="price-2">500 TL - 1.500 TL</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-3">
-                        <label class="custom-control-label" for="price-3">1.500 TL - 5.000 TL</label>
-                        <span class="badge border font-weight-normal">246</span>
-                    </div>
-                </form>
-            </div>
-            <!-- Price Filter End -->
-        </div>
-        <!-- Shop Sidebar End -->
-
-        <!-- Shop Product List Start -->
-        <div class="col-lg-9 col-md-12">
-            <div class="row pb-3">
-                <div class="col-12 pb-1">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <form action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ürün adına göre ara...">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-transparent text-primary">
-                                        <i class="fa fa-search"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="dropdown ml-4">
-                            <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sıralama: Önerilen
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                <a class="dropdown-item" href="#">En Yeniler</a>
-                                <a class="dropdown-item" href="#">En Çok Satanlar</a>
-                                <a class="dropdown-item" href="#">Fiyat: Düşükten Yükseğe</a>
-                                <a class="dropdown-item" href="#">Fiyat: Yüksekten Düşüğe</a>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Shop Product List Start (Full Width) -->
+        <div class="col-12">
+            <!-- Sepete Ekleme Bildirimi -->
+            @if (TempData["CartSuccess"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show rounded-lg shadow-sm mb-4" role="alert">
+                    <i class="fas fa-check-circle mr-2 text-success"></i>
+                    <strong>Harika!</strong> @TempData["CartSuccess"]
+                    <a href="/Cart/Index" class="btn btn-sm btn-success font-weight-bold ml-3 px-3 rounded-pill shadow-sm">
+                        <i class="fas fa-shopping-cart mr-1"></i>Sepete Git
+                    </a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+            }
 
+            <div class="row pb-3">
                 <!-- Dynamic Products from Backend API -->
                 @if (Model != null && Model.Any())
                 {
                     @foreach (var item in Model)
                     {
-                        <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                            <div class="card product-item border-0 mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                            <div class="card product-item border-0 mb-4 shadow-sm h-100">
                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="@item.ProductImageURL" alt="@item.ProductName" style="height: 280px; object-fit: cover;">
+                                    <img class="img-fluid w-100" src="@item.ProductImageURL" alt="@item.ProductName" style="height: 260px; object-fit: cover;">
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3 font-weight-semi-bold">@item.ProductName</h6>
+                                    <h6 class="text-truncate mb-3 font-weight-semi-bold px-2" title="@item.ProductName">@item.ProductName</h6>
                                     <div class="d-flex justify-content-center">
-                                        <h6>₺@item.ProductPrice.ToString("N2")</h6>
+                                        <h6 class="text-primary font-weight-bold">₺@item.ProductPrice.ToString("N2")</h6>
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="/Product/ProductDetail/@item.ProductID" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Detay</a>
-                                    <a href="#" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Sepete Ekle</a>
+                                    <a href="/Product/ProductDetail/@item.ProductID" class="btn btn-sm text-dark p-0 font-weight-medium">
+                                        <i class="fas fa-eye text-primary mr-1"></i>Detay
+                                    </a>
+                                    <form method="post" action="/Cart/AddToCart" class="m-0 p-0 d-inline">
+                                        <input type="hidden" name="productId" value="@item.ProductID" />
+                                        <input type="hidden" name="quantity" value="1" />
+                                        <button type="submit" class="btn btn-sm text-dark p-0 border-0 bg-transparent font-weight-medium" title="Sepete Ekle">
+                                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Sepete Ekle
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

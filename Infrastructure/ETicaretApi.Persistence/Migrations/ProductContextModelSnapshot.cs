@@ -138,6 +138,8 @@ namespace ETicaretApi.Persistence.Migrations
 
                     b.HasKey("ProductID");
 
+                    b.HasIndex("ProductCategoryID");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -446,6 +448,17 @@ namespace ETicaretApi.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ETicaretApi.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("ETicaretApi.Domain.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("ETicaretApi.Persistence.Identity.AppRole", null)
@@ -495,6 +508,11 @@ namespace ETicaretApi.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ETicaretApi.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

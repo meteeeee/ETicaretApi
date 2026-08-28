@@ -12,6 +12,7 @@ namespace ETicaretApi.WebApi.Controllers
     {
         private readonly getProductQueryHandler _getProductQueryHandler;
         private readonly getProductByIdQueryHandler _getProductByIdQueryHandler;
+        private readonly getProductWithCategoryQueryHandler _getProductWithCategoryQueryHandler;
         private readonly CreateProductCommandHandler _createProductCommandHandler;
         private readonly UpdateProductCommandHandler _updateProductCommandHandler;
         private readonly RemoveProductCommandHandler _removeProductCommandHandler;
@@ -19,12 +20,14 @@ namespace ETicaretApi.WebApi.Controllers
         public ProductsController(
             getProductQueryHandler getProductQueryHandler,
             getProductByIdQueryHandler getProductByIdQueryHandler,
+            getProductWithCategoryQueryHandler getProductWithCategoryQueryHandler,
             CreateProductCommandHandler createProductCommandHandler,
             UpdateProductCommandHandler updateProductCommandHandler,
             RemoveProductCommandHandler removeProductCommandHandler)
         {
             _getProductQueryHandler = getProductQueryHandler;
             _getProductByIdQueryHandler = getProductByIdQueryHandler;
+            _getProductWithCategoryQueryHandler = getProductWithCategoryQueryHandler;
             _createProductCommandHandler = createProductCommandHandler;
             _updateProductCommandHandler = updateProductCommandHandler;
             _removeProductCommandHandler = removeProductCommandHandler;
@@ -35,6 +38,13 @@ namespace ETicaretApi.WebApi.Controllers
         {
             var value = await _getProductQueryHandler.Handle();
             return Ok(value);
+        }
+
+        [HttpGet("ProductListWithCategory")]
+        public async Task<IActionResult> ProductListWithCategory()
+        {
+            var values = await _getProductWithCategoryQueryHandler.Handle();
+            return Ok(values);
         }
 
         [HttpPost]

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\Infrastructure\ETicaretApi.Persistence\ETicaretApi.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

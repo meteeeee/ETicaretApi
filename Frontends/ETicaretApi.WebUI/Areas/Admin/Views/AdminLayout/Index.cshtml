@@ -1,0 +1,115 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="p-lg">
+    <div class="flex flex-col w-full gap-lg">
+        <!-- Stat Cards Start -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+            <div class="bg-primary text-on-primary rounded-xl p-md relative overflow-hidden shadow-sm flex flex-col justify-between h-[120px] transition-transform hover:scale-[1.02]">
+                <div class="flex justify-between items-start z-10">
+                    <div>
+                        <div class="font-data-lg text-data-lg">26K</div>
+                        <div class="font-body-md text-body-md opacity-80 mt-xs">Kullanıcılar (+12.4% <span class="material-symbols-outlined text-[14px] align-middle">arrow_upward</span>)</div>
+                    </div>
+                    <span class="material-symbols-outlined opacity-60 cursor-pointer">more_vert</span>
+                </div>
+                <svg class="absolute bottom-0 left-0 w-full h-[60px] opacity-40 pointer-events-none" preserveaspectratio="none" viewbox="0 0 100 40">
+                    <path d="M0 30 Q 15 15, 30 25 T 60 10 T 100 20 L 100 40 L 0 40 Z" fill="none" stroke="currentColor" stroke-width="2"></path>
+                </svg>
+            </div>
+            <div class="bg-secondary-container text-on-secondary-container rounded-xl p-md relative overflow-hidden shadow-sm flex flex-col justify-between h-[120px] transition-transform hover:scale-[1.02]">
+                <div class="flex justify-between items-start z-10">
+                    <div>
+                        <div class="font-data-lg text-data-lg">₺142.500</div>
+                        <div class="font-body-md text-body-md opacity-80 mt-xs">Toplam Gelir (40.9% <span class="material-symbols-outlined text-[14px] align-middle">arrow_upward</span>)</div>
+                    </div>
+                    <span class="material-symbols-outlined opacity-60 cursor-pointer">more_vert</span>
+                </div>
+                <svg class="absolute bottom-0 left-0 w-full h-[60px] opacity-40 pointer-events-none" preserveaspectratio="none" viewbox="0 0 100 40">
+                    <path d="M0 25 Q 20 5, 40 15 T 70 5 T 100 15 L 100 40 L 0 40 Z" fill="none" stroke="currentColor" stroke-width="2"></path>
+                </svg>
+            </div>
+            <div class="bg-tertiary-container text-on-tertiary-container rounded-xl p-md relative overflow-hidden shadow-sm flex flex-col justify-between h-[120px] transition-transform hover:scale-[1.02]">
+                <div class="flex justify-between items-start z-10">
+                    <div>
+                        <div class="font-data-lg text-data-lg">84</div>
+                        <div class="font-body-md text-body-md opacity-80 mt-xs">Toplam Sipariş (+14)</div>
+                    </div>
+                    <span class="material-symbols-outlined opacity-60 cursor-pointer">more_vert</span>
+                </div>
+            </div>
+            <div class="bg-error-container text-on-error-container rounded-xl p-md relative overflow-hidden shadow-sm flex flex-col justify-between h-[120px] transition-transform hover:scale-[1.02]">
+                <div class="flex justify-between items-start z-10">
+                    <div>
+                        <div class="font-data-lg text-data-lg">8</div>
+                        <div class="font-body-md text-body-md opacity-80 mt-xs">Aktif Ürünler</div>
+                    </div>
+                    <span class="material-symbols-outlined opacity-60 cursor-pointer">more_vert</span>
+                </div>
+            </div>
+        </div>
+        <!-- Stat Cards End -->
+
+        <!-- Traffic Graph Start -->
+        <div class="bg-surface-container-low rounded-xl shadow-md border border-outline-variant/10 overflow-hidden">
+            <div class="p-lg flex justify-between items-start border-b border-outline-variant/10">
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface font-bold">Satış & Ziyaretçi Trafiği</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-xs">Ocak - Temmuz 2026</p>
+                </div>
+                <div class="flex gap-md items-center">
+                    <div class="flex rounded-lg overflow-hidden border border-outline-variant/20">
+                        <button class="px-md py-xs bg-surface-container hover:bg-surface-container-highest text-on-surface-variant font-body-md transition-colors border-r border-outline-variant/20">Gün</button>
+                        <button class="px-md py-xs bg-primary text-on-primary font-body-md font-medium transition-colors border-r border-outline-variant/20">Ay</button>
+                        <button class="px-md py-xs bg-surface-container hover:bg-surface-container-highest text-on-surface-variant font-body-md transition-colors">Yıl</button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-lg relative h-[300px] w-full">
+                <div class="absolute inset-y-lg left-lg right-lg flex flex-col justify-between pointer-events-none">
+                    <div class="border-b border-outline-variant/10 w-full h-0"></div>
+                    <div class="border-b border-outline-variant/10 w-full h-0"></div>
+                    <div class="border-b border-outline-variant/10 w-full h-0"></div>
+                    <div class="border-b border-outline-variant/10 w-full h-0"></div>
+                    <div class="border-b border-outline-variant/10 w-full h-0"></div>
+                </div>
+                <div class="absolute inset-y-lg left-lg right-lg pointer-events-none z-10">
+                    <svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+                        <path d="M0 150 Q 150 100, 300 40 T 600 120 T 1000 100" fill="none" stroke="var(--tw-colors-secondary)" stroke-width="2"></path>
+                        <path d="M0 130 Q 200 160, 400 80 T 800 150 T 1000 70" fill="none" stroke="var(--tw-colors-tertiary)" stroke-width="2"></path>
+                    </svg>
+                </div>
+                <div class="absolute bottom-md left-lg right-lg flex justify-between text-label-caps font-label-caps text-on-surface-variant/60 uppercase">
+                    <span>Ocak</span>
+                    <span>Şubat</span>
+                    <span>Mart</span>
+                    <span>Nisan</span>
+                    <span>Mayıs</span>
+                    <span>Haziran</span>
+                    <span>Temmuz</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 bg-surface-container-lowest/50 divide-x divide-outline-variant/10">
+                <div class="p-lg flex flex-col items-center justify-center text-center">
+                    <span class="font-body-md text-on-surface-variant mb-xs">Ziyaretler</span>
+                    <span class="font-title-sm text-on-surface font-bold">29.703 Ziyaretçi</span>
+                </div>
+                <div class="p-lg flex flex-col items-center justify-center text-center">
+                    <span class="font-body-md text-on-surface-variant mb-xs">Tekil Ziyaret</span>
+                    <span class="font-title-sm text-on-surface font-bold">24.093 Kişi</span>
+                </div>
+                <div class="p-lg flex flex-col items-center justify-center text-center">
+                    <span class="font-body-md text-on-surface-variant mb-xs">Sayfa Görüntüleme</span>
+                    <span class="font-title-sm text-on-surface font-bold">78.706 Görüntülenme</span>
+                </div>
+                <div class="p-lg flex flex-col items-center justify-center text-center">
+                    <span class="font-body-md text-on-surface-variant mb-xs">Yeni Kayıtlar</span>
+                    <span class="font-title-sm text-on-surface font-bold">22.123 Üye</span>
+                </div>
+            </div>
+        </div>
+        <!-- Traffic Graph End -->
+    </div>
+</div>

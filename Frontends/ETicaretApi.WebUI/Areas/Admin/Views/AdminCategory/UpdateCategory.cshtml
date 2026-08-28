@@ -1,0 +1,38 @@
+@using ETicaretApi.Dto.Dtos.AdminCategoryDtos
+@model AdminUpdateCategoryDto
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="p-lg max-w-3xl mx-auto">
+    <!-- Form Kartı (Stitch Dark Theme) -->
+    <div class="bg-surface-container-low rounded-2xl shadow-lg border border-outline-variant/10 p-xl">
+        <div class="mb-lg flex items-start gap-3">
+            <span class="text-2xl">✏️</span>
+            <div>
+                <h1 class="font-headline-md text-headline-md text-on-surface font-bold">Kategori Güncelle</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Kategori bilgilerini düzenleyip kaydedebilirsiniz.</p>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-lg mt-6">
+            <input type="hidden" asp-for="CategoryID" />
+
+            <div>
+                <label class="block text-on-surface font-semibold mb-2">Kategori Adı</label>
+                <input type="text" asp-for="CategoryName" required placeholder="Kategori adı giriniz..." class="w-full px-md py-3 bg-surface-container border border-outline-variant/30 rounded-xl text-on-surface focus:outline-none focus:border-primary transition-colors text-base" />
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-6 border-t border-outline-variant/10">
+                <a href="/Admin/AdminCategory/CategoryList" class="px-6 py-2.5 bg-surface-container-high text-on-surface-variant rounded-xl font-semibold hover:bg-surface-container-highest transition-colors">
+                    Vazgeç
+                </a>
+                <button type="submit" class="px-6 py-2.5 bg-primary text-on-primary rounded-xl font-bold hover:scale-[1.02] transition-transform flex items-center gap-2 shadow-sm">
+                    <span class="material-symbols-outlined text-[20px]">save</span>
+                    Güncellemeyi Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

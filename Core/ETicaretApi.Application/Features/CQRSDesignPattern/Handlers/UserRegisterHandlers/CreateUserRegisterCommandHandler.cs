@@ -2,16 +2,18 @@ using ETicaretApi.Application.Features.CQRSDesignPattern.Commands.UserRegisterCo
 using ETicaretApi.Persistence.Context;
 using ETicaretApi.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.UserRegisterHandlers
 {
     public class CreateUserRegisterCommandHandler
     {
-        private readonly ProductContext productContext;
+        private readonly ProductContext _productContext;
         private readonly UserManager<AppUser> _userManager;
+
         public CreateUserRegisterCommandHandler(ProductContext productContext, UserManager<AppUser> userManager)
         {
-            this.productContext = productContext;
+            _productContext = productContext;
             _userManager = userManager;
         }
 
@@ -26,9 +28,14 @@ namespace ETicaretApi.Application.Features.CQRSDesignPattern.Handlers.UserRegist
                 Address = command.Address,
                 Email = command.Email
             };
-            return await _userManager.CreateAsync(user, command.Password);
+
+            var result = await _userManager.CreateAsync(user, command.Password);
+            if (result.Succeeded)
+            {
+                // Kullanıcıya doğrudan 'User' rolünü ata (AspNetUserRoles tablosunu doldurur)
+                await _userManager.AddToRoleAsync(user, "User");
+            }
+            return result;
         }
-
-
     }
 }

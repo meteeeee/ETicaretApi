@@ -17,6 +17,17 @@ namespace ETicaretApi.Persistence.Context
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.ProductCategoryID);
+
+            modelBuilder.Entity<Review>()
+                .HasOne<AppUser>()
+                .WithMany()
+                .HasForeignKey(r => r.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Gerçekçi Kategori ID'leri
             var catGiyimId = Guid.Parse("7f3a8b12-9c4e-4f81-a623-4d8e7b91c01a");
             var catElektronikId = Guid.Parse("3e8f1a24-7b6c-4d95-8e12-5a7b9c23d45f");
